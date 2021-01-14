@@ -1,21 +1,29 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
+import Login from '../views/login.vue';
 
-const routes: Array<RouteRecordRaw> = [
+// 首次必然要加载的路由
+const constRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    name: 'Login',
+    component: Login,
   },
 ];
+
+// 所有路由
+let routes:Array<RouteRecordRaw> = [];
+
+// 自动添加router目录下的所有ts路由模块
+const files = require.context('./', false, /\.ts$/);
+files.keys().forEach((route) => {
+  // 如果是根目录的 index.js、 不做任何处理
+  if (route.startsWith('./index')) {
+    return;
+  }
+  const routerModule = files(route);
+  // 兼容 import export 和 require module.export 两种规范 ES modules commonjs
+  routes = [...constRoutes, ...(routerModule.default || routerModule)];
+});
 
 const router = createRouter({
   history: createWebHashHistory(),

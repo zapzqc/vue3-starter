@@ -12,7 +12,9 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-console': 'off',
+    'no-debugger': 'off',
+    'import/prefer-default-export': 'off', // hook 函数不一定需要默认导出
+    'max-len': ['error', { code: 160 }],
   },
 };

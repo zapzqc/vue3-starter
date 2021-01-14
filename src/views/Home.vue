@@ -1,18 +1,20 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <hooks :title="hookTitle"></hooks>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Hooks from '@/components/hooks.vue';
 
 export default defineComponent({
   name: 'Home',
   components: {
-    HelloWorld,
+    Hooks,
+  },
+  setup() {
+    return {
+      hookTitle: 'Hooks使用示例',
+    };
   },
 });
 </script>
